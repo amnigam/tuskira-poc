@@ -1,0 +1,12 @@
+# docker-compose.poc.yml - POC overlay on top of the repo's deploy/docker-compose.yml.
+# The repo's compose file only passes through the GATEWAY_* variables it lists, so
+# settings it does not list must be added here to reach the container.
+services:
+  gateway:
+    environment:
+      # Sign every Bedrock call with the gateway's own AWS identity (the EC2
+      # instance role). AWS credentials a caller sends are never used.
+      GATEWAY_LLM_PROXY_BEDROCK_CREDENTIAL_MODE: gateway
+      # The Anthropic-direct route cannot be switched off; point it nowhere so
+      # Bedrock is the only model provider that works.
+      GATEWAY_LLM_PROXY_UPSTREAM_BASE_URL: https://anthropic-disabled.invalid

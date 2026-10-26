@@ -1,0 +1,11 @@
+dist/
+__pycache__/
+*.pyc
+.venv/
+# secrets and per-run output that only ever live on the VM
+keys.env
+admin.env
+ticketdesk.env
+.env
+test-results/
+*.log

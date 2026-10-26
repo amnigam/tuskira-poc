@@ -1,0 +1,18 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "UseTheInferenceProfile",
+      "Effect": "Allow",
+      "Action": ["bedrock:InvokeModel", "bedrock:InvokeModelWithResponseStream"],
+      "Resource": "arn:aws:bedrock:__REGION__:__ACCOUNT__:inference-profile/__PROFILE_ID__"
+    },
+    {
+      "Sid": "ModelOnlyThroughThatProfile",
+      "Effect": "Allow",
+      "Action": ["bedrock:InvokeModel", "bedrock:InvokeModelWithResponseStream"],
+      "Resource": "arn:aws:bedrock:*::foundation-model/__MODEL__",
+      "Condition": {"StringEquals": {"bedrock:InferenceProfileArn": "arn:aws:bedrock:__REGION__:__ACCOUNT__:inference-profile/__PROFILE_ID__"}}
+    }
+  ]
+}
